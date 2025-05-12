@@ -2,19 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Admin extends Model
+class Admin extends Authenticatable
 {
-    use HasFactory;
+    use Notifiable;
 
     protected $table = 'admin';
+    protected $primaryKey = 'id';
+    public $timestamps = false; // atau true jika pakai created_at/updated_at
 
     protected $fillable = [
-        'nama',
-        'email',
-        'password',
+        'nama', 'email', 'password',
     ];
 
+    protected $hidden = [
+        'password',
+    ];
 }

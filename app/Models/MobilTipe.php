@@ -10,6 +10,7 @@ class MobilTipe extends Model
     use HasFactory;
 
     protected $table = 'mobil_tipe';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'id_mobil',
@@ -19,8 +20,9 @@ class MobilTipe extends Model
         'harga_mobil',
     ];
 
+    // Relasi: tipe ini milik satu Mobil
     public function mobil()
     {
-        return $this->belongsTo(Mobil::class, 'id_mobil');
+        return $this->belongsTo(Mobil::class, 'id_mobil', 'id');
     }
 }
