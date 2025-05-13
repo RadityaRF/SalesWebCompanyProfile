@@ -11,8 +11,7 @@
 <table id="table-mobil" class="table table-striped">
   <thead>
     <tr>
-      <th>ID</th>
-      <th>Nama</th>
+      <th>Nama Mobil</th>
       <th>Jenis</th>
       <th>Harga Mulai</th>
       <th>Aksi</th>
@@ -21,7 +20,6 @@
   <tbody>
     @foreach($mobils as $m)
     <tr>
-      <td>{{ $m->id }}</td>
       <td>{{ $m->nama_mobil }}</td>
       <td>{{ $m->jenis_mobil }}</td>
       <td>Rp {{ number_format($m->harga_mulai,0,',','.') }}</td>
@@ -39,7 +37,7 @@
         <form action="{{ route('admin.mobil.destroy',$m->id) }}" method="POST" class="d-inline"
               onsubmit="return confirm('Hapus mobil ini?')">
           @csrf @method('DELETE')
-          <button class="btn btn-sm btn-danger"><i class="lni lni-trash"></i></button>
+          <button class="btn btn-sm btn-danger">Hapus</button>
         </form>
       </td>
     </tr>

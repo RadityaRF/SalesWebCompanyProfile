@@ -24,9 +24,6 @@ use App\Http\Controllers\Admin\SettingController as AdminSettingController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/mobil/{id}', [MobilController::class, 'show'])->name('mobil.show');
 
-// Authentication Routes for Users (if any)
-// Auth::routes();
-
 // Admin Panel Routes
 Route::prefix('admin')->name('admin.')->group(function() {
     // Login & Logout
@@ -34,13 +31,16 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::post('login', [AdminLoginController::class, 'login'])->name('login.submit');
     Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout');
 
-    // Protected Admin Routes
+    // Protected Admin Routes (harus login admin untuk akses)
     Route::middleware('auth:admin')->group(function() {
         // Dashboard
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
         // CRUD Mobil
         Route::resource('mobil', AdminMobilController::class);
+
+        // CRUD Tipe Mobil - Definisikan route untuk daftar tipe mobil admin
+        Route::get('tipeMobil', [AdminMobilTipeController::class, 'index'])->name('mobil_tipe.index_tipe'); // <-- Pastikan ini benar
 
         // Nested CRUD for Mobil Tipe (shallow)
         Route::resource('mobil.tipe', AdminMobilTipeController::class)->shallow();

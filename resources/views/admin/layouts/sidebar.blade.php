@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="{{ route('admin.mobil.index_tipe') }}" class="sidebar-link">
+                <a href="{{ route('admin.mobil_tipe.index_tipe') }}" class="sidebar-link">
                     <i class="lni lni-pencil-alt"></i>
                     <span>Daftar Tipe Mobil</span>
                 </a>

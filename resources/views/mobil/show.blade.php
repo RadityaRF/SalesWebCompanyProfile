@@ -18,6 +18,7 @@
         <p class="text-red-600 font-bold mb-2">
           Rp {{ number_format($tipe->harga_mobil,0,',','.') }}
         </p>
+        <h3>Spesifikasi:</h3>
         <ul class="list-disc list-inside text-sm text-gray-700 flex-1 mb-4">
           @foreach(explode("\n", $tipe->spesifikasi) as $baris)
             <li>{{ trim($baris) }}</li>
