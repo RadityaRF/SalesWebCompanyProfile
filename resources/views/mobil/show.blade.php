@@ -1,7 +1,5 @@
-@extends('layouts.app')
-
+@extends('layouts.main')
 @section('title', $mobil->nama_mobil)
-
 @section('content')
   <div class="mb-8">
     <h1 class="text-3xl font-bold">{{ $mobil->nama_mobil }}</h1>
@@ -26,7 +24,7 @@
         </ul>
         <a href="#"
            class="mt-auto py-2 rounded-lg bg-red-600 text-white text-center text-sm">
-          Pilih Tipe
+          Booking Now!
         </a>
       </div>
     @endforeach

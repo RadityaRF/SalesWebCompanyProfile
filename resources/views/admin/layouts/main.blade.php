@@ -1,32 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <!--table-->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="{{ asset('css/layout-main.css') }}">
-    <title>@yield('title')</title>
-</head>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin Panel - Honda Indonesia</title>
 
-<body>
-    @include('admin.layouts.sidebar')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+    <!-- Tailwind CSS -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <!-- Line Icons -->
+    <link href="https://cdn.lineicons.com/5.0/lineicons.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('images/honda-logo.svg') }}" type="image/svg+xml">
+<body class="bg-gray-50">
+    <div class="wrapper flex">
+        <!-- Include Sidebar -->
+        <aside id="sidebar" class="w-64 min-h-screen fixed top-0 left-0 z-50">
+            @include('admin.layouts.sidebar')
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main flex-1 ml-64 p-4 min-h-screen">
+            <div class="max-w-full mx-auto">
+                <!-- Content -->
+                <main class="bg-white rounded-lg shadow p-6">
+                    @yield('content')
+                </main>
+
+                <!-- Footer -->
+                <footer class="mt-6 text-center text-sm text-gray-500">
+                    &copy; {{ date('Y') }} Honda Indonesia
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Toggle sidebar functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleBtn = document.querySelector('.toggle-btn');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main');
+
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('ml-64');
+                mainContent.classList.toggle('ml-20');
+
+                // Save state in localStorage
+                const isCollapsed = sidebar.classList.contains('collapsed');
+                localStorage.setItem('sidebarCollapsed', isCollapsed);
+            });
+
+            // Load saved state
+            if (localStorage.getItem('sidebarCollapsed') === 'true') {
+                sidebar.classList.add('collapsed');
+                mainContent.classList.remove('ml-64');
+                mainContent.classList.add('ml-20');
+            }
+        });
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <!--table-->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('/js/layout-main.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.js"></script>
-</body>
 
+    @stack('scripts')
+</body>
 </html>
