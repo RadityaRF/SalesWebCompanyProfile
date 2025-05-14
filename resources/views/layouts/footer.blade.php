@@ -32,7 +32,7 @@
 
         <!-- Bottom Legal Information -->
         <div class="mt-6 text-center text-sm text-gray-400">  <!-- Warna teks copyright diubah -->
-            &copy; {{ date('Y') }} Honda Indonesia. All Rights Reserved.
+            &copy; {{ date('Y') }} - All Rights Reserved.
         </div>
     </div>
 </footer>

@@ -1,7 +1,7 @@
 <div class="wrapper flex">
     <!-- Sidebar -->
     <aside id="sidebar" class="bg-[#2B2828] text-white w-64 min-h-screen transition-all duration-300 ease-in-out fixed">
-        <div class="p-4 flex items-center justify-between border-b border-[#252222]">
+        {{-- <div class="p-4 flex items-center justify-between border-b border-[#252222]">
             <button class="toggle-btn text-white focus:outline-none">
                 <i class="lni lni-list text-xl"></i>
             </button>
@@ -10,13 +10,13 @@
                     Honda Admin
                 </a>
             </div>
-        </div>
+        </div> --}}
 
         <ul class="sidebar-nav p-4 space-y-2">
             <li class="sidebar-item">
                 <a href="{{ route('admin.dashboard') }}"
                    class="sidebar-link flex items-center p-3 rounded-lg hover:bg-[#252222] hover:text-red-500 transition-colors duration-200 {{ request()->routeIs('admin.dashboard') ? 'bg-[#252222] text-red-500' : '' }}">
-                    <i class="lni lni-home mr-3"></i>
+                    <i class="lni lni-home-2 mr-3"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
@@ -24,7 +24,7 @@
             <li class="sidebar-item">
                 <a href="{{ route('admin.mobil.index') }}"
                    class="sidebar-link flex items-center p-3 rounded-lg hover:bg-[#252222] hover:text-red-500 transition-colors duration-200 {{ request()->routeIs('admin.mobil.*') ? 'bg-[#252222] text-red-500' : '' }}">
-                    <i class="lni lni-car mr-3"></i>
+                    <i class="lni lni-car-4 mr-3"></i>
                     <span>Daftar Mobil</span>
                 </a>
             </li>
@@ -32,7 +32,7 @@
             <li class="sidebar-item">
                 <a href="{{ route('admin.mobil_tipe.index_tipe') }}"
                    class="sidebar-link flex items-center p-3 rounded-lg hover:bg-[#252222] hover:text-red-500 transition-colors duration-200 {{ request()->routeIs('admin.mobil_tipe.*') ? 'bg-[#252222] text-red-500' : '' }}">
-                    <i class="lni lni-layers mr-3"></i>
+                    <i class="lni lni-layers-1 mr-3"></i>
                     <span>Tipe Mobil</span>
                 </a>
             </li>

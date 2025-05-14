@@ -31,7 +31,7 @@
 
                 <!-- Footer -->
                 <footer class="mt-6 text-center text-sm text-gray-500">
-                    &copy; {{ date('Y') }} Honda Indonesia
+                    &copy; {{ date('Y') }} - All Rights Reserved.
                 </footer>
             </div>
         </div>
