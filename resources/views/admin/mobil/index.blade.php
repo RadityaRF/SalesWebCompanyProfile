@@ -29,9 +29,11 @@
                     <td class="py-4 px-4">{{ $m->jenis_mobil }}</td>
                     <td class="py-4 px-4">Rp {{ number_format($m->harga_mulai, 0, ',', '.') }}</td>
                     <td class="py-4 px-4 flex space-x-2">
-                        <button class="p-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition-colors" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $m->id }}">
-                            <i class="lni lni-eye"></i>
-                        </button>
+                        <a href="{{ route('admin.mobil.show', $m->id) }}">
+                            <button class="p-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition-colors">
+                                <i class="lni lni-eye"></i>
+                            </button>
+                        </a>
                         <a href="{{ route('admin.mobil.edit', $m->id) }}">
                             <button class="p-2 bg-yellow-100 text-yellow-600 rounded-lg hover:bg-yellow-200 transition-colors">
                                 <i class="lni lni-pencil-1"></i>
@@ -55,53 +57,6 @@
         {{ $mobils->links() }}
     </div>
 </div>
-
-<!-- Modal Detail -->
-@foreach($mobils as $m)
-<div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-     id="modalDetail{{ $m->id }}" tabindex="-1" aria-labelledby="modalDetailLabel{{ $m->id }}" aria-hidden="true">
-    <div class="modal-dialog relative w-auto pointer-events-none max-w-3xl mx-auto my-12">
-        <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-lg outline-none text-current">
-            <div class="modal-header flex items-center justify-between p-4 border-b border-gray-200 rounded-t-lg bg-[#2B2828] text-white">
-                <h5 class="text-xl font-medium" id="modalDetailLabel{{ $m->id }}">
-                    {{ $m->nama_mobil }}
-                </h5>
-                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close">
-                    <i class="lni lni-close"></i>
-                </button>
-            </div>
-            <div class="modal-body p-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-gray-100 rounded-lg p-4 flex items-center justify-center">
-                        <img src="{{ asset('storage/'.$m->gambar_mobil) }}" alt="{{ $m->nama_mobil }}"
-                             class="max-h-64 object-contain rounded-lg">
-                    </div>
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-semibold text-gray-800">Detail Mobil</h4>
-                            <div class="mt-2 space-y-2">
-                                <p><span class="font-medium">Jenis:</span> {{ $m->jenis_mobil }}</p>
-                                <p><span class="font-medium">Harga:</span> Rp {{ number_format($m->harga_mulai,0,',','.') }}</p>
-                                <p><span class="font-medium">Highlight:</span> {{ $m->highlight }}</p>
-                            </div>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-800">Deskripsi</h4>
-                            <p class="mt-2 text-gray-600">{{ $m->deskripsi }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer flex justify-end p-4 border-t border-gray-200 rounded-b-lg">
-                <button type="button" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
-                        data-bs-dismiss="modal">
-                    Tutup
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
 
 @push('scripts')
 <script>

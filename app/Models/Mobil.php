@@ -27,4 +27,15 @@ class Mobil extends Model
         return $this->hasMany(MobilTipe::class, 'id_mobil', 'id');
     }
 
+    // Relasi: satu Mobil punya banyak MobilFitur
+    public function fiturMobil()
+    {
+        return $this->hasMany(MobilFitur::class, 'id_mobil', 'id');
+    }
+
+    // Relasi: satu Mobil punya banyak MobilWarna
+    public function warnaMobil()
+    {
+        return $this->hasMany(MobilWarna::class, 'id_mobil', 'id');
+    }
 }

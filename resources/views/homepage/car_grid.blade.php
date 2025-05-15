@@ -7,7 +7,7 @@
                 class="w-full h-48 object-contain p-4">
         </div>
         <div class="p-4 flex flex-col flex-grow">
-            <h2 class="font-semibold text-lg mb-1 text-center text-gray-800">{{ $mobil->nama_mobil }}</h2>
+            <h2 class="font-bold text-xl mb-1 text-center text-gray-800">{{ $mobil->nama_mobil }}</h2>
             @if($mobil->harga_mulai && is_numeric(str_replace('.', '', $mobil->harga_mulai)))
             <p class="text-sm text-gray-500 mb-0.5 text-center">Harga mulai</p>
             <p class="text-red-600 font-bold text-lg mb-4 text-center">

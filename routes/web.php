@@ -40,8 +40,11 @@ Route::prefix('admin')->name('admin.')->group(function() {
         // CRUD Mobil
         Route::resource('mobil', AdminMobilController::class);
 
-        // CRUD Tipe Mobil - Definisikan route untuk daftar tipe mobil admin
-        Route::get('tipeMobil', [AdminMobilTipeController::class, 'index'])->name('mobil_tipe.index_tipe'); // <-- Pastikan ini benar
+        // CRUD Tipe Mobil
+        Route::get('tipeMobil', [AdminMobilTipeController::class, 'index'])->name('mobil_tipe.index_tipe'); // Daftar tipe mobil
+        Route::get('tipeMobil/create', [AdminMobilTipeController::class, 'create'])->name('mobil_tipe.create'); // Form tambah tipe mobil
+        Route::post('tipeMobil', [AdminMobilTipeController::class, 'store'])->name('mobil_tipe.store'); // Proses simpan tipe mobil
+        Route::get('tipeMobil/{tipe}', [AdminMobilTipeController::class, 'show'])->name('mobil_tipe.show'); // Tampil detail tipe mobil
 
         // Nested CRUD for Mobil Tipe (shallow)
         Route::resource('mobil.tipe', AdminMobilTipeController::class)->shallow();

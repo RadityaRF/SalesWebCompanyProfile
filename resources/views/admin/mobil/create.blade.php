@@ -6,11 +6,13 @@
     <form action="{{ route('admin.mobil.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <!-- Input untuk Nama Mobil -->
             <div class="mb-8">
                 <label for="nama_mobil" class="block text-lg font-medium text-gray-700">Nama Mobil</label>
                 <input type="text" name="nama_mobil" id="nama_mobil" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2" required>
             </div>
 
+            <!-- Input untuk Jenis Mobil -->
             <div class="mb-8">
                 <label for="jenis_mobil" class="block text-lg font-medium text-gray-700">Jenis Mobil</label>
                 <select name="jenis_mobil" id="jenis_mobil" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2" required>
@@ -22,6 +24,7 @@
                 </select>
             </div>
 
+            <!-- Input Gambar Mobil -->
             <div class="mb-8">
                 <label class="block text-lg font-medium text-gray-700 mb-2">Gambar Mobil</label>
                 <div class="flex items-center">
@@ -31,21 +34,51 @@
                 </div>
             </div>
 
+            <!-- Input Highlight -->
             <div class="mb-8">
                 <label for="highlight" class="block text-lg font-medium text-gray-700">Highlight</label>
                 <input type="text" name="highlight" id="highlight" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2">
             </div>
 
+            <!-- Input Deskripsi -->
             <div class="mb-8">
                 <label for="deskripsi" class="block text-lg font-medium text-gray-700">Deskripsi</label>
                 <textarea name="deskripsi" id="deskripsi" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2" rows="5"></textarea>
             </div>
 
+            <!-- Input Harga Mulai -->
             <div class="mb-8">
                 <label for="harga_mulai" class="block text-lg font-medium text-gray-700">Harga Mulai</label>
                 <input type="text" name="harga_mulai" id="harga_mulai" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2">
             </div>
 
+            <!-- Input Fitur Mobil -->
+            <div class="mb-8">
+                <label class="block text-lg font-medium text-gray-700">Fitur Mobil</label>
+                <div id="fitur-container">
+                    <div class="flex items-center mb-2">
+                        <input type="text" name="fitur[]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2" placeholder="Nama Fitur">
+                        <input type="file" name="gambar_fitur[]" class="mt-1 block border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2 ml-2" placeholder="Gambar Fitur">
+                        <button type="button" class="ml-2 bg-red-600 text-white rounded-md p-2" onclick="removeFitur(this)">Hapus</button>
+                    </div>
+                </div>
+                <button type="button" class="mt-2 bg-blue-600 text-white rounded-md p-2" onclick="addFitur()">Tambah Fitur</button>
+            </div>
+
+            <!-- Input Warna Mobil -->
+            <div class="mb-8">
+                <label class="block text-lg font-medium text-gray-700">Warna Mobil</label>
+                <div id="warna-container">
+                    <div class="flex items-center mb-2">
+                        <input type="text" name="warna[]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2" placeholder="Nama Warna">
+                        <input type="file" name="gambar_warna[]" class="mt-1 block border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2 ml-2">
+                        <button type="button" class="ml-2 bg-red-600 text-white rounded-md p-2" onclick="removeWarna(this)">Hapus</button>
+                    </div>
+                </div>
+                <button type="button" class="mt-2 bg-blue-600 text-white rounded-md p-2" onclick="addWarna()">Tambah Warna</button>
+            </div>
+
+            <!-- Tombol Simpan dan Kembali -->
             <div class="flex justify-between">
                 <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-200">Simpan</button>
                 <a href="{{ route('admin.mobil.index') }}" class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition duration-200">Kembali</a>
@@ -60,6 +93,38 @@
             const fileNameDisplay = document.getElementById('fileName');
             const file = fileInput.files[0];
             fileNameDisplay.textContent = file ? file.name : 'Tidak ada file yang dipilih';
+        }
+
+        function addFitur() {
+            const container = document.getElementById('fitur-container');
+            const newFitur = document.createElement('div');
+            newFitur.className = 'flex items-center mb-2';
+            newFitur.innerHTML = `
+                <input type="text" name="fitur[]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2" placeholder="Nama Fitur">
+                <input type="file" name="gambar_fitur[]" class="mt-1 block border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2 ml-2">
+                <button type="button" class="ml-2 bg-red-600 text-white rounded-md p-2" onclick="removeFitur(this)">Hapus</button>
+            `;
+            container.appendChild(newFitur);
+        }
+
+        function removeFitur(button) {
+            button.parentElement.remove();
+        }
+
+        function addWarna() {
+            const container = document.getElementById('warna-container');
+            const newWarna = document.createElement('div');
+            newWarna.className = 'flex items-center mb-2';
+            newWarna.innerHTML = `
+                <input type="text" name="warna[]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2" placeholder="Nama Warna">
+                <input type="file" name="gambar_warna[]" class="mt-1 block border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2 ml-2">
+                <button type="button" class="ml-2 bg-red-600 text-white rounded-md p-2" onclick="removeWarna(this)">Hapus</button>
+            `;
+            container.appendChild(newWarna);
+        }
+
+        function removeWarna(button) {
+            button.parentElement.remove();
         }
     </script>
     @endpush
