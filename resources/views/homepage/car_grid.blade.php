@@ -32,6 +32,4 @@
         </div>
         </div>
     @endforeach
-@else
-    <p class="col-span-full text-center text-gray-500">Tidak ada mobil yang tersedia untuk filter ini.</p>
 @endif

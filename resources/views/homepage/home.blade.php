@@ -7,7 +7,7 @@
             class="w-full h-auto object-cover shadow-md">
     </div>
 
-    <h1 class="text-3xl font-bold text-center text-red-800 mb-6 md:mb-8" id="all-cars">Pilih Mobil Honda untuk Anda!</h1>
+    <h1 class="text-3xl font-bold text-center text-red-800 mb-6 md:mb-8">Pilih Mobil Honda untuk Anda!</h1>
 
     {{-- Filter Desktop Only --}}
     <div class="mb-8 px-4">

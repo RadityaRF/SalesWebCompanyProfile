@@ -43,19 +43,12 @@ class HomeController extends Controller
         $agent = new Agent();
         $isMobile = $agent->isMobile();
 
-        $filterJenis = $request->query('jenis', 'All');
-        $query = Mobil::query();
+        $jenis = $request->query('jenis');
+        $mobils = Mobil::when($jenis && $jenis !== 'All', function($q) use ($jenis) {
+            $q->where('jenis_mobil', $jenis);
+        })->get();
 
-        if ($filterJenis && $filterJenis !== 'All') {
-            $query->where('jenis_mobil', $filterJenis);
-        }
-
-        $mobils = $query->latest()->get();
-
-        if ($request->ajax()) {
-            return view('homepage._car_grid', ['mobils' => $mobils])->render();
-        }
-
-        return redirect()->route('home', ['jenis' => $filterJenis ?? 'All']);
+        // Kembalikan partial view
+        return view('homepage.car_grid', compact('mobils'))->render();
     }
 }
