@@ -36,7 +36,6 @@
                                         <i class="lni lni-eye"></i> Detail
                                     </button>
                                 </a>
-                                {{-- Uncomment if you need edit and delete actions
                                 <a href="{{ route('admin.mobil_tipe.edit', $tipe->id) }}">
                                     <button class="p-2 bg-yellow-100 text-yellow-600 rounded-lg hover:bg-yellow-200 transition-colors">
                                         <i class="lni lni-pencil-1"></i> Edit
@@ -48,7 +47,6 @@
                                         <i class="lni lni-trash-3"></i> Hapus
                                     </button>
                                 </form>
-                                --}}
                             </td>
                         </tr>
                     @endforeach

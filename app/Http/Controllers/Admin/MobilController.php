@@ -33,6 +33,7 @@ class MobilController extends Controller
             'nama_mobil' => 'required|string',
             'jenis_mobil' => 'required|in:City Car & Hatchback,MPV,Sedan,Sports,SUV',
             'gambar_mobil' => 'nullable|image',
+            'banner_mobil' => 'nullable|image', // Menambahkan validasi untuk banner mobil
             'highlight' => 'nullable|string',
             'deskripsi' => 'nullable|string',
             'harga_mulai' => 'nullable|string',
@@ -48,6 +49,14 @@ class MobilController extends Controller
             $filePath = 'mobil/' . $file->getClientOriginalName();
             $file->move(public_path('storage/mobil'), $file->getClientOriginalName());
             $data['gambar_mobil'] = $filePath;
+        }
+
+        // Cek apakah ada banner yang diupload
+        if ($req->hasFile('banner_mobil')) {
+            $bannerFile = $req->file('banner_mobil');
+            $bannerPath = 'mobil/banner/' . $bannerFile->getClientOriginalName();
+            $bannerFile->move(public_path('storage/mobil/banner'), $bannerFile->getClientOriginalName());
+            $data['banner_mobil'] = $bannerPath;
         }
 
         // Menyimpan data mobil ke dalam database
@@ -98,12 +107,13 @@ class MobilController extends Controller
     {
         // Validasi data yang diterima dari form
         $data = $req->validate([
-            'nama_mobil'   => 'required|string',
-            'jenis_mobil'  => 'required|in:City Car & Hatchback,MPV,Sedan,Sports,SUV',
+            'nama_mobil' => 'required|string',
+            'jenis_mobil' => 'required|in:City Car & Hatchback,MPV,Sedan,Sports,SUV',
             'gambar_mobil' => 'nullable|image',
-            'highlight'    => 'nullable|string',
-            'deskripsi'    => 'nullable|string',
-            'harga_mulai'  => 'nullable|string',
+            'banner_mobil' => 'nullable|image', // Menambahkan validasi untuk gambar banner
+            'highlight' => 'nullable|string',
+            'deskripsi' => 'nullable|string',
+            'harga_mulai' => 'nullable|string',
         ]);
 
         // Cek jika ada gambar yang diupload
@@ -117,6 +127,19 @@ class MobilController extends Controller
             $file->move(public_path('storage/mobil'), $file->getClientOriginalName());
 
             $data['gambar_mobil'] = $filePath;
+        }
+
+        // Cek jika ada banner yang diupload
+        if ($req->hasFile('banner_mobil')) {
+            if ($mobil->banner_mobil) {
+                Storage::delete('public/' . $mobil->banner_mobil);
+            }
+
+            $bannerFile = $req->file('banner_mobil');
+            $bannerPath = 'mobil/banner/' . $bannerFile->getClientOriginalName();
+            $bannerFile->move(public_path('storage/mobil/banner'), $bannerFile->getClientOriginalName());
+
+            $data['banner_mobil'] = $bannerPath;
         }
 
         // Memperbarui data mobil

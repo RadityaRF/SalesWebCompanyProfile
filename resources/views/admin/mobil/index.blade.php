@@ -31,18 +31,18 @@
                     <td class="py-4 px-4 flex space-x-2">
                         <a href="{{ route('admin.mobil.show', $m->id) }}">
                             <button class="p-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition-colors">
-                                <i class="lni lni-eye"></i>
+                                <i class="lni lni-eye"></i> Detail
                             </button>
                         </a>
                         <a href="{{ route('admin.mobil.edit', $m->id) }}">
                             <button class="p-2 bg-yellow-100 text-yellow-600 rounded-lg hover:bg-yellow-200 transition-colors">
-                                <i class="lni lni-pencil-1"></i>
+                                <i class="lni lni-pencil-1"></i> Edit
                             </button>
                         </a>
                         <form action="{{ route('admin.mobil.destroy', $m->id) }}" method="POST" onsubmit="return confirm('Hapus mobil ini?')">
                             @csrf @method('DELETE')
                             <button type="submit" class="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors">
-                                <i class="lni lni-trash-3"></i>
+                                <i class="lni lni-trash-3"></i> Hapus
                             </button>
                         </form>
                     </td>

@@ -19,20 +19,21 @@ class HomeController extends Controller
         $agent = new Agent();
         $isMobile = $agent->isMobile();
 
-        $currentFilter = $isMobile ? 'All' : $request->query('jenis', 'All');
-
+        // Tampilkan semua mobil pada awalnya
         $query = Mobil::query();
-
-        if ($currentFilter !== 'All') {
-            $query->where('jenis_mobil', $currentFilter);
+        if (!$isMobile) {
+            $currentFilter = $request->query('jenis', 'All');
+            if ($currentFilter !== 'All') {
+                $query->where('jenis_mobil', $currentFilter);
+            }
         }
 
+        // Mendapatkan mobil
         $mobils = $query->latest()->get();
 
         return view('homepage.home', [
             'mobils' => $mobils,
             'jenisList' => $jenisList,
-            'filter' => $currentFilter,
         ]);
     }
 
@@ -42,18 +43,14 @@ class HomeController extends Controller
         $agent = new Agent();
         $isMobile = $agent->isMobile();
 
-        if ($isMobile) {
-            $mobils = Mobil::latest()->get();
-        } else {
-            $filterJenis = $request->query('jenis', 'All');
-            $query = Mobil::query();
+        $filterJenis = $request->query('jenis', 'All');
+        $query = Mobil::query();
 
-            if ($filterJenis && $filterJenis !== 'All') {
-                $query->where('jenis_mobil', $filterJenis);
-            }
-
-            $mobils = $query->latest()->get();
+        if ($filterJenis && $filterJenis !== 'All') {
+            $query->where('jenis_mobil', $filterJenis);
         }
+
+        $mobils = $query->latest()->get();
 
         if ($request->ajax()) {
             return view('homepage._car_grid', ['mobils' => $mobils])->render();

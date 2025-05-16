@@ -34,6 +34,16 @@
                 </div>
             </div>
 
+            <!-- Input Gambar Banner Mobil -->
+            <div class="mb-8">
+                <label class="block text-lg font-medium text-gray-700 mb-2">Banner Mobil</label>
+                <div class="flex items-center">
+                    <input type="file" name="banner_mobil" id="banner_mobil" class="hidden" onchange="updateBannerFileName()" />
+                    <label for="banner_mobil" class="cursor-pointer bg-gray-200 text-gray-700 rounded-md py-2 px-4 border border-gray-400 hover:bg-gray-300">Pilih Banner</label>
+                    <span class="ml-2 text-gray-600" id="bannerFileName">Tidak ada file yang dipilih</span>
+                </div>
+            </div>
+
             <!-- Input Highlight -->
             <div class="mb-8">
                 <label for="highlight" class="block text-lg font-medium text-gray-700">Highlight</label>
@@ -71,7 +81,7 @@
                 <div id="warna-container">
                     <div class="flex items-center mb-2">
                         <input type="text" name="warna[]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2" placeholder="Nama Warna">
-                        <input type="file" name="gambar_warna[]" class="mt-1 block border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2 ml-2">
+                        <input type="file" name="gambar_warna[]" class="mt-1 block border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2 ml-2" placeholder="Gambar Warna">
                         <button type="button" class="ml-2 bg-red-600 text-white rounded-md p-2" onclick="removeWarna(this)">Hapus</button>
                     </div>
                 </div>
@@ -93,6 +103,13 @@
             const fileNameDisplay = document.getElementById('fileName');
             const file = fileInput.files[0];
             fileNameDisplay.textContent = file ? file.name : 'Tidak ada file yang dipilih';
+        }
+
+        function updateBannerFileName() {
+            const bannerFileInput = document.getElementById('banner_mobil');
+            const bannerFileNameDisplay = document.getElementById('bannerFileName');
+            const file = bannerFileInput.files[0];
+            bannerFileNameDisplay.textContent = file ? file.name : 'Tidak ada file yang dipilih';
         }
 
         function addFitur() {

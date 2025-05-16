@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin Panel - Honda Indonesia</title>
+    <title>Admin Panel - Honda Web Sales</title>
 
     <!-- Tailwind CSS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -13,7 +13,7 @@
     <link href="https://cdn.lineicons.com/5.0/lineicons.css" rel="stylesheet">
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('images/honda-logo.svg') }}" type="image/svg+xml">
+    <link rel="icon" href="{{ asset('images/honda-symbol.png') }}" type="image/svg+xml">
 <body class="bg-gray-50">
     <div class="wrapper flex">
         <!-- Include Sidebar -->

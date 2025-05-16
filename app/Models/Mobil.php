@@ -18,6 +18,7 @@ class Mobil extends Model
         'gambar_mobil',
         'highlight',
         'deskripsi',
+        'banner_mobil',
         'harga_mulai',
     ];
 

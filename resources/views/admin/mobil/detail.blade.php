@@ -2,28 +2,47 @@
 @section('title', 'Detail Mobil')
 @section('content')
 <div class="mb-8">
-    <h2 class="text-2xl font-semibold mb-6">{{ $mobil->nama_mobil }}</h2>
+    <h2 class="text-2xl font-semibold mb-6 text-center">{{ $mobil->nama_mobil }}</h2>
 
     <div class="bg-white rounded-lg shadow p-6 mb-6">
-        <!-- Gambar Mobil -->
-        @if($mobil->gambar_mobil)
-            <img src="{{ asset('storage/'.$mobil->gambar_mobil) }}" alt="{{ $mobil->nama_mobil }}" class="w-full max-w-md center mx-auto">
+
+        <!-- Banner Mobil -->
+        @if($mobil->banner_mobil)
+            <div class="w-full overflow-hidden">
+                <img src="{{ asset('storage/'.$mobil->banner_mobil) }}" alt="{{ $mobil->nama_mobil }} Banner" class="w-full h-auto mb-10"> <!-- Full width tanpa margin -->
+            </div>
         @endif
 
-        <!-- Detail Mobil -->
-        <div class="mb-4 grid grid-cols-2 gap-4">
-            <div>
-                <span class="font-medium">Jenis Mobil:</span><br>
-                {{ $mobil->jenis_mobil }}
+        <!-- Gambar Mobil dan Detail Mobil -->
+        <div class="flex">
+            <!-- Gambar Mobil -->
+            <div class="flex-shrink-0">
+                @if($mobil->gambar_mobil)
+                    <img src="{{ asset('storage/'.$mobil->gambar_mobil) }}" alt="{{ $mobil->nama_mobil }}" class="w-full max-w-md mx-auto">
+                @endif
             </div>
-            <div>
-                <span class="font-medium">Harga Mulai:</span><br>
-                Rp {{ number_format($mobil->harga_mulai, 0, ',', '.') }}
+
+            <!-- Detail Mobil -->
+            <div class="ml-6 flex-1"> <!-- Menambahkan margin kiri untuk jarak -->
+                <div class="mb-4 grid grid-cols-1 gap-4">
+                    <div>
+                        <span class="font-medium">Jenis Mobil:</span><br>
+                        {{ $mobil->jenis_mobil }}
+                    </div>
+                    <div>
+                        <span class="font-medium">Harga Mulai:</span><br>
+                        Rp {{ number_format($mobil->harga_mulai, 0, ',', '.') }}
+                    </div>
+                    <div>
+                        <span class="font-medium">Highlight:</span><br>
+                        {{ $mobil->highlight }}
+                    </div>
+                </div>
             </div>
-            <div>
-                <span class="font-medium">Highlight:</span><br>
-                {{ $mobil->highlight }}
-            </div>
+        </div>
+
+        <!-- Deskripsi Mobil -->
+        <div class="mb-8">
             <div>
                 <span class="font-medium">Deskripsi:</span><br>
                 {{ $mobil->deskripsi }}

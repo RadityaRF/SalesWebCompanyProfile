@@ -2,7 +2,7 @@
 @section('title', 'Detail Tipe Mobil')
 @section('content')
 <div class="mb-8">
-    <h2 class="text-2xl font-semibold mb-6">{{ $tipe->nama_tipe }}</h2>
+    <h2 class="text-2xl font-semibold mb-6 text-center">{{ $tipe->nama_tipe }}</h2>
 
     <div class="bg-white rounded-lg shadow p-6 mb-6">
         <!-- Gambar Tipe Mobil -->
@@ -12,12 +12,14 @@
 
         <!-- Detail Mobil Tipe -->
         <div class="mb-4">
-            <span class="font-medium">Nama Mobil:</span><br>
-            <span class="text-lg">{{ $tipe->mobil->nama_mobil }}</span> <!-- Display the name of the mobil -->
-        </div>
-        <div class="mb-4">
             <span class="font-medium">Spesifikasi:</span><br>
-            <span>{{ $tipe->spesifikasi }}</span>
+            <span>
+                <ul class="list-disc list-inside flex-1 mb-4">
+                    @foreach(explode("\n", $tipe->spesifikasi) as $baris)
+                <li>{{ trim($baris) }}</li>
+                @endforeach
+            </span>
+        </ul>
         </div>
         <div class="mb-4">
             <span class="font-medium">Harga Mobil:</span><br>

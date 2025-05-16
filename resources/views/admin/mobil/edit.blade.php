@@ -40,6 +40,21 @@
                 @endif
             </div>
 
+            <!-- Input Gambar Banner Mobil -->
+            <div class="mb-8">
+                <label class="block text-lg font-medium text-gray-700 mb-2">Banner Mobil</label>
+                <div class="flex items-center">
+                    <input type="file" name="banner_mobil" id="banner_mobil" class="hidden" onchange="updateBannerFileName()" />
+                    <label for="banner_mobil" class="cursor-pointer bg-gray-200 text-gray-700 rounded-md py-2 px-4 border border-gray-400 hover:bg-gray-300">Pilih Banner</label>
+                    <span class="ml-2 text-gray-600" id="bannerFileName">Tidak ada file yang dipilih</span>
+                </div>
+                @if($mobil->banner_mobil)
+                    <div class="mt-2">
+                        <img src="{{ asset('storage/'.$mobil->banner_mobil) }}" alt="{{ $mobil->nama_mobil }} Banner" class="img-fluid" style="max-width: 200px;">
+                    </div>
+                @endif
+            </div>
+
             <!-- Input Highlight -->
             <div class="mb-8">
                 <label for="highlight" class="block text-lg font-medium text-gray-700">Highlight</label>
@@ -105,6 +120,13 @@
             const fileNameDisplay = document.getElementById('fileName');
             const file = fileInput.files[0];
             fileNameDisplay.textContent = file ? file.name : 'Tidak ada file yang dipilih';
+        }
+
+        function updateBannerFileName() {
+            const bannerFileInput = document.getElementById('banner_mobil');
+            const bannerFileNameDisplay = document.getElementById('bannerFileName');
+            const file = bannerFileInput.files[0];
+            bannerFileNameDisplay.textContent = file ? file.name : 'Tidak ada file yang dipilih';
         }
 
         function addFitur() {

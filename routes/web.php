@@ -46,6 +46,11 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::post('tipeMobil', [AdminMobilTipeController::class, 'store'])->name('mobil_tipe.store'); // Proses simpan tipe mobil
         Route::get('tipeMobil/{tipe}', [AdminMobilTipeController::class, 'show'])->name('mobil_tipe.show'); // Tampil detail tipe mobil
 
+        Route::get('tipeMobil/{tipe}/edit', [AdminMobilTipeController::class, 'edit'])->name('mobil_tipe.edit');  // Form edit tipe mobil
+        Route::put('tipeMobil/{tipe}', [AdminMobilTipeController::class, 'update'])->name('mobil_tipe.update'); // Proses update tipe mobil
+
+        Route::delete('tipeMobil/{tipe}', [AdminMobilTipeController::class, 'destroy'])->name('mobil_tipe.destroy'); // Proses hapus tipe mobil
+
         // Nested CRUD for Mobil Tipe (shallow)
         Route::resource('mobil.tipe', AdminMobilTipeController::class)->shallow();
 

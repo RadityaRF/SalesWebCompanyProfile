@@ -7,7 +7,7 @@
 
         <!-- Desktop Navigation -->
         <nav class="hidden md:flex items-center space-x-6 text-sm uppercase">
-            <a href="{{ route('home') }}" class="hover:text-red-600 transition-colors duration-200">Cars</a>
+            <a href="#all-cars" class="hover:text-red-600 transition-colors duration-200">Cars</a>
             <a href="#" class="hover:text-red-600 transition-colors duration-200">Promotions</a>
             <a href="#" class="hover:text-red-600 transition-colors duration-200">Booking</a>
             <button aria-label="Search" class="hover:text-red-600 transition-colors duration-200">
