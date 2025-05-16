@@ -78,30 +78,44 @@
                 <p class="text-lg sm:text-xl text-red-600 font-semibold mb-3">{{ $mobil->highlight }}</p>
             @endif
             @if($mobil->deskripsi)
-                <p class="text-gray-700 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed">{{ $mobil->deskripsi }}</p>
+                <p class="text-gray-700 text-base max-w-3xl mx-auto leading-relaxed">{{ $mobil->deskripsi }}</p>
             @endif
         </section>
 
-        @if($mobil->warnaMobil && $mobil->warnaMobil->count() > 0)
-            <section class="mb-8 md:mb-12">
-                <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Pilihan Warna</h2>
-                <div class="flex overflow-x-auto space-x-4 pb-4 custom-scrollbar px-2 -mx-2">
-                    @foreach ($mobil->warnaMobil as $warna)
-                        <div class="color-option-card bg-white rounded-lg shadow-md overflow-hidden group">
-                            <div class="color-option-image-container flex items-center justify-center">
-                                <img src="{{ asset('storage/'.$warna->gambar_warna_mobil) }}" alt="{{ $warna->nama_warna ?? $warna->warna_mobil }}" class="w-full h-full object-cover">
-                                {{-- Fallback jika tidak ada gambar spesifik per warna, gunakan div berwarna dari kode asli Anda --}}
-                                <div class="w-full h-full" style="background-color: {{ $warna->hex_code_warna ?? $warna->warna_mobil }};">
-                                     {{-- Jika ingin ada efek saat hover atau sbg placeholder, bisa tambahkan ikon atau teks di sini --}}
-                                </div>
-                            </div>
-                            <div class="p-3 text-center">
-                                <span class="text-sm font-medium text-gray-700">{{ $warna->nama_warna ?? $warna->warna_mobil }}</span>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </section>
+        @php
+            $warnaList = $mobil->warnaMobil->filter(function($warna) {
+                return $warna && $warna->gambar_warna_mobil;
+            })->values();
+            $defaultWarna = $warnaList->first();
+        @endphp
+
+        @if($defaultWarna)
+        <div class="flex flex-col items-center mb-8">
+            <!-- Gambar Mobil Utama -->
+            <img id="main-mobil-img"
+                 src="{{ asset('storage/'.$defaultWarna->gambar_warna_mobil) }}"
+                 alt="{{ $defaultWarna->nama_warna ?? $defaultWarna->warna_mobil }}"
+                 class="w-full max-w-xl mb-6 transition-all duration-300"
+                 style="min-height:220px;">
+
+            <!-- Pilihan Warna -->
+            <div class="flex justify-center gap-4 mb-4 flex-wrap sm:flex-nowrap">
+                @foreach($warnaList as $warna)
+                    <button
+                        class="rounded-full border-2 border-gray-300 w-10 h-10 flex items-center justify-center focus:outline-none transition-all duration-200 warna-btn"
+                        style="background-color: {{ $warna->hex_code_warna ?? $warna->warna_mobil }}; min-width: 2.5rem; min-height: 2.5rem; aspect-ratio: 1/1;"
+                        data-img="{{ asset('storage/'.$warna->gambar_warna_mobil) }}"
+                        data-nama="{{ $warna->nama_warna ?? $warna->warna_mobil }}"
+                        aria-label="{{ $warna->nama_warna ?? $warna->warna_mobil }}">
+                    </button>
+                @endforeach
+            </div>
+
+            <!-- Nama Warna Aktif -->
+            <div id="nama-warna-aktif" class="text-lg font-semibold text-gray-700 text-center">
+                {{ $defaultWarna->nama_warna ?? $defaultWarna->warna_mobil }}
+            </div>
+        </div>
         @endif
 
         @if($mobil->fiturMobil && $mobil->fiturMobil->count() > 0)
@@ -122,19 +136,22 @@
             </section>
         @endif
 
+        @php
+            $tipeMobilSorted = $mobil->tipeMobil->sortBy('harga_mobil');
+        @endphp
         <!-- Spesifikasi dan Tipe Mobil -->
         <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            @foreach($mobil->tipeMobil as $tipe)
+            @foreach($tipeMobilSorted as $tipe)
                 <div class="bg-white rounded-xl shadow-md p-4 flex flex-col">
                     <img src="{{ asset('storage/'.$tipe->gambar_mobil_tipe) }}"
                         alt="{{ $tipe->nama_tipe }}"
-                        class="h-40 object-contain mb-4 rounded-lg">
+                        class="h-64 object-contain mb-4 rounded-lg w-full">
                     <h3 class="font-bold mb-1 text-lg text-center">{{ $tipe->nama_tipe }}</h3>
                     <p class="text-2xl text-red-600 font-bold mb-2 text-center">
                         Rp {{ number_format($tipe->harga_mobil,0,',','.') }}
                     </p>
                     <h3>Spesifikasi:</h3>
-                    <ul class="list-disc list-inside text-sm text-gray-700 flex-1 mb-4">
+                    <ul class="list-disc list-inside text-base text-gray-700 flex-1 mb-4">
                     @foreach(explode("\n", $tipe->spesifikasi) as $baris)
                         <li>{{ trim($baris) }}</li>
                     @endforeach
@@ -150,10 +167,39 @@
 @endsection
 
 @push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Script tambahan jika diperlukan
-    console.log("Halaman detail mobil {{ $mobil->nama_mobil }} telah dimuat.");
+    const img = document.getElementById('main-mobil-img');
+    const namaWarna = document.getElementById('nama-warna-aktif');
+    const btns = document.querySelectorAll('.warna-btn');
+
+    // Set warna bulat otomatis dari gambar menggunakan Color Thief
+    btns.forEach(btn => {
+        const colorImg = new window.Image();
+        colorImg.crossOrigin = 'Anonymous';
+        colorImg.src = btn.dataset.img;
+        colorImg.onload = function() {
+            try {
+                const colorThief = new ColorThief();
+                const color = colorThief.getColor(colorImg);
+                btn.style.backgroundColor = `rgb(${color[0]},${color[1]},${color[2]})`;
+            } catch (e) {
+                // fallback jika gagal
+            }
+        };
+    });
+
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            img.src = this.dataset.img;
+            namaWarna.textContent = this.dataset.nama;
+            btns.forEach(b => b.classList.remove('ring', 'ring-red-500'));
+            this.classList.add('ring', 'ring-red-500');
+        });
+    });
+    // Set ring pada warna default
+    if(btns.length) btns[0].classList.add('ring', 'ring-red-500');
 });
 </script>
 @endpush

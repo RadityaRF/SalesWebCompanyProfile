@@ -49,6 +49,14 @@
         <i class="fas fa-car text-4xl text-gray-300 mb-3"></i>
         <p class="text-gray-500">Tidak ada mobil yang tersedia</p>
     </div>
+
+    {{-- Google Maps Embed --}}
+    <div class="mt-20 max-w-4xl mx-auto">
+        <h2 class="text-xl font-semibold text-center mb-4">Lokasi Honda Pekalongan Motor</h2>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" loading="lazy" allowfullscreen src="https://maps.google.com/maps?q=Honda+Pekalongan+Motor&output=embed"></iframe>
+        </div>
+    </div>
 @endsection
 
 @push('styles')

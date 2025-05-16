@@ -160,6 +160,20 @@ class MobilController extends Controller
             }
         }
 
+        // Menghapus warna yang ditandai
+        if ($req->hapus_warna) {
+            foreach ($req->hapus_warna as $warnaId) {
+                $warna = $mobil->warnaMobil()->find($warnaId);
+                if ($warna) {
+                    // Hapus gambar warna dari storage jika ada
+                    if ($warna->gambar_warna_mobil) {
+                        Storage::delete('public/' . $warna->gambar_warna_mobil);
+                    }
+                    $warna->delete(); // Hapus warna dari database
+                }
+            }
+        }
+
         // Menyimpan/update fitur mobil yang tidak dihapus
         if ($req->fitur) {
             foreach ($req->fitur as $index => $fitur) {

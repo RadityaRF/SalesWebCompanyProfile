@@ -24,7 +24,10 @@
             </thead>
             <tbody class="divide-y divide-gray-200">
                 @foreach($mobils as $mobil)
-                    @foreach($mobil->tipeMobil as $tipe)
+                    @php
+                        $sortedTipe = $mobil->tipeMobil->sortBy('harga_mobil');
+                    @endphp
+                    @foreach($sortedTipe as $tipe)
                         <tr class="hover:bg-gray-50 transition-colors duration-150">
                             <td class="py-4 px-4 font-semibold">{{ $mobil->nama_mobil }}</td>
                             <td class="py-4 px-4">{{ $tipe->nama_tipe }}</td>

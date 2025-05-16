@@ -99,6 +99,8 @@
                             <input type="text" name="warna[]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2" placeholder="Nama Warna" value="{{ $warna->warna_mobil }}">
                             <input type="file" name="gambar_warna[]" class="mt-1 block border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg p-2 ml-2">
                             <button type="button" class="ml-2 bg-red-600 text-white rounded-md p-2" onclick="removeWarna(this)">Hapus</button>
+                            <!-- Tambahkan checkbox untuk menghapus warna -->
+                            <input type="checkbox" name="hapus_warna[]" value="{{ $warna->id }}" class="ml-2"> Hapus
                         </div>
                     @endforeach
                 </div>

@@ -70,10 +70,10 @@
             <div class="grid grid-cols-2 gap-4">
                 @foreach($mobil->warnaMobil as $warna)
                     <div class="flex flex-col items-center">
-                        <div class="relative w-full" style="padding-top: 56.25%;"> <!-- 16:9 aspect ratio -->
-                            <div class="absolute top-0 left-0 w-full h-full" style="background-color: {{ $warna->warna_mobil }};"></div>
+                        <div class="flex items-center justify-center rounded overflow-hidden mb-2 bg-white" style="background-color: {{ $warna->warna_mobil }}; min-width: 140px; min-height: 140px;">
+                            <img src="{{ asset('storage/'.$warna->gambar_warna_mobil) }}" alt="{{ $warna->warna_mobil }}" class="max-w-full max-h-40 object-contain" style="display: block;">
                         </div>
-                        <span class="text-center mt-2">{{ $warna->warna_mobil }}</span>
+                        <span class="text-center mt-1">{{ $warna->warna_mobil }}</span>
                     </div>
                 @endforeach
             </div>
