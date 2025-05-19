@@ -13,7 +13,11 @@ class MobilTipeController extends Controller
     public function index()
     {
         // Mengambil semua mobil beserta tipe-tipe yang dimiliki
-        $mobils = Mobil::with('tipeMobil')->paginate(10);
+        $mobils = Mobil::with(['tipeMobil' => function($query) {
+                        $query->orderBy('harga_mobil', 'asc');
+                    }])
+                    ->orderBy('harga_mulai', 'asc')
+                    ->paginate(10);
 
         return view('admin.mobil_tipe.index_tipe', compact('mobils'));
     }
@@ -27,7 +31,7 @@ class MobilTipeController extends Controller
     public function create()
     {
         // Retrieve all mobil data to pass to the view for dropdown
-        $mobils = Mobil::all(); // Adjust accordingly to get your data
+        $mobils = Mobil::orderBy('nama_mobil')->get();
         return view('admin.mobil_tipe.create_tipe', compact('mobils'));
     }
 
@@ -61,8 +65,7 @@ class MobilTipeController extends Controller
     public function edit(MobilTipe $tipe)
     {
         // Ambil daftar mobil untuk dropdown
-        $mobils = Mobil::all();
-        // Tampilkan view edit dengan data tipe mobil dan daftar mobil
+        $mobils = Mobil::orderBy('nama_mobil')->get();
         return view('admin.mobil_tipe.edit_tipe', compact('tipe', 'mobils'));
     }
 
