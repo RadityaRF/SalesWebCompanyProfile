@@ -3,7 +3,7 @@
 @section('content')
 <div>
     <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-3 sm:gap-0">
-        <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-2 sm:mb-0">Daftar Mobil</h2>
+        <h2 class="text-2xl sm:text-2xl font-bold text-gray-800 mb-2 sm:mb-0">Daftar Mobil</h2>
         <a href="{{ route('admin.mobil.create') }}"
            class="bg-red-600 hover:bg-red-700 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg flex items-center transition-colors duration-200 text-sm sm:text-base w-full sm:w-auto justify-center mt-2 sm:mt-0">
             <i class="lni lni-plus mr-2"></i> Tambah Mobil

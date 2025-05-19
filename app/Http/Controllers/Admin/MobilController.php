@@ -142,7 +142,20 @@ class MobilController extends Controller
             $data['banner_mobil'] = $bannerPath;
         }
 
-        // Memperbarui data mobil
+        // Hapus gambar mobil jika diminta
+        if ($req->filled('hapus_gambar')) {
+            if ($mobil->gambar_mobil) {
+                Storage::delete('public/' . $mobil->gambar_mobil);
+            }
+            $data['gambar_mobil'] = null;
+        }
+        // Hapus banner mobil jika diminta
+        if ($req->filled('hapus_banner')) {
+            if ($mobil->banner_mobil) {
+                Storage::delete('public/' . $mobil->banner_mobil);
+            }
+            $data['banner_mobil'] = null;
+        }
         $mobil->update($data);
 
         // Menghapus fitur yang ditandai
