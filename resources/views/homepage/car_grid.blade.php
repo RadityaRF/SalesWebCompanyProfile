@@ -20,7 +20,7 @@
             </p>
             @endif
             <div class="mt-auto grid grid-cols-1 gap-2 pt-2 border-t border-gray-200">
-            <a href="{{ route('mobil.show', $mobil->id) }}"
+            <a href="{{ route('mobil.show', $mobil->slug) }}"
                 class="w-full text-center py-2.5 rounded-md bg-red-600 text-white text-sm font-medium hover:bg-red-700 transition duration-150">
                 Detail
             </a>

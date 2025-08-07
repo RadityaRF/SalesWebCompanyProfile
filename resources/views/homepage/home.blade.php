@@ -3,11 +3,13 @@
 @section('content')
     {{-- Hero Banner --}}
     <div class="mb-8">
-        <img src="{{ asset('images/banner-honda-en1.jpg') }}" alt="Honda e:N1 Electrify Your Journey"
+        <img src="https://d1g6w7sntckt92.cloudfront.net/public/images/basic_pages/1P6MIA4KXm5sWzfrzEd4drn7PjZAvaR6q3lGNs72.jpg"
+            alt="Toyota Let's Go Beyond"
             class="w-full h-auto object-cover shadow-md">
+
     </div>
 
-    <h1 class="text-3xl font-bold text-center text-red-800 mb-6 md:mb-8">Pilih Mobil Honda untuk Anda!</h1>
+    <h1 class="text-3xl font-bold text-center text-red-800 mb-6 md:mb-8">Pilih Mobil Toyota untuk Anda!</h1>
 
     {{-- Filter Desktop Only --}}
     <div class="mb-8 px-4">

@@ -39,17 +39,17 @@
                     </div>
                 </div>
                 <div class="flex flex-row sm:flex-col gap-2 sm:ml-4 w-full sm:w-auto sm:items-end">
-                    <a href="{{ route('admin.mobil.show', $m->id) }}" class="w-full sm:w-32">
+                    <a href="{{ route('admin.mobil.show', $m->slug) }}" class="w-full sm:w-32">
                         <button class="w-full justify-center text-xs sm:text-sm p-2 bg-blue-100 text-blue-600 rounded-md hover:bg-blue-200 transition-colors flex items-center">
                             <i class="lni lni-eye text-sm"></i> <span class="ml-1 font-semibold">Detail</span>
                         </button>
                     </a>
-                    <a href="{{ route('admin.mobil.edit', $m->id) }}" class="w-full sm:w-32">
+                    <a href="{{ route('admin.mobil.edit', $m->slug) }}" class="w-full sm:w-32">
                         <button class="w-full justify-center text-xs sm:text-sm p-2 bg-yellow-100 text-yellow-600 rounded-md hover:bg-yellow-200 transition-colors flex items-center">
                             <i class="lni lni-pencil-1 text-sm"></i> <span class="ml-1 font-semibold">Edit</span>
                         </button>
                     </a>
-                    <form action="{{ route('admin.mobil.destroy', $m->id) }}" method="POST" onsubmit="return confirm('Hapus mobil ini?')" class="w-full sm:w-32">
+                    <form action="{{ route('admin.mobil.destroy', $m->slug) }}" method="POST" onsubmit="return confirm('Hapus mobil ini?')" class="w-full sm:w-32">
                         @csrf @method('DELETE')
                         <button type="submit" class="w-full justify-center text-xs sm:text-sm p-2 bg-red-100 text-red-600 rounded-md hover:bg-red-200 transition-colors flex items-center">
                             <i class="lni lni-trash-3 text-sm"></i> <span class="ml-1 font-semibold">Hapus</span>

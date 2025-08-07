@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto flex items-center justify-between p-6 px-4 sm:px-6">
         <!-- Logo and tagline -->
         <a href="{{ route('home') }}" class="flex items-center space-x-2">
-            <img src="{{ asset('images/honda-logo.svg') }}" alt="Honda" class="h-7">
+            <img src="{{ asset('images/toyota_home_logo.svg') }}" alt="Honda" class="h-7">
         </a>
 
         <!-- Desktop Navigation -->

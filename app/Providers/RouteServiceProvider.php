@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use App\Models\Mobil;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -22,8 +23,26 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
      */
+    // public function boot(): void
+    // {
+    //     $this->configureRateLimiting();
+
+    //     $this->routes(function () {
+    //         Route::middleware('api')
+    //             ->prefix('api')
+    //             ->group(base_path('routes/api.php'));
+
+    //         Route::middleware('web')
+    //             ->group(base_path('routes/web.php'));
+    //     });
+    // }
     public function boot(): void
     {
+        // Add this binding BEFORE $this->routes()
+        Route::bind('mobil', function ($value) {
+            return Mobil::where('slug', $value)->firstOrFail();
+        });
+
         $this->configureRateLimiting();
 
         $this->routes(function () {

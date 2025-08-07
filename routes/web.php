@@ -23,7 +23,8 @@ use App\Http\Controllers\Admin\SettingController as AdminSettingController;
 // Frontend Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/mobil/filter', [HomeController::class, 'filterMobil'])->name('mobil.filter');
-Route::get('/mobil/{id}', [MobilController::class, 'show'])->name('mobil.show');
+// Route::get('/mobil/{nama_mobil}', [MobilController::class, 'show'])->name('mobil.show');
+Route::get('/mobil/{mobil:slug}', [MobilController::class, 'show'])->name('mobil.show');
 
 // Admin Panel Routes
 Route::prefix('admin')->name('admin.')->group(function() {
