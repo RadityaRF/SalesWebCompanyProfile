@@ -136,7 +136,7 @@
                     </main>
 
                     <footer class="mt-8 pt-6 border-t border-gray-200 text-center text-xs sm:text-sm text-gray-500">
-                        &copy; {{ date('Y') }} - All Rights Reserved.
+                        &copy; {{ date('Y') }} - All Rights Reserved. Powered by {{ config('app.author') }}
                     </footer>
                 </div>
             </div>

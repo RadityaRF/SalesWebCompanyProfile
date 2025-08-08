@@ -118,7 +118,7 @@
         </div>
         @endif
 
-        @if($mobil->fiturMobil && $mobil->fiturMobil->count() > 0)
+        <!-- @if($mobil->fiturMobil && $mobil->fiturMobil->count() > 0)
             <section class="mb-8 md:mb-12">
                 <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Fitur Unggulan</h2>
                 <div class="space-y-6 md:space-y-8">
@@ -134,7 +134,26 @@
                     @endforeach
                 </div>
             </section>
+        @endif -->
+
+        @if($mobil->fiturMobil && $mobil->fiturMobil->count() > 0)
+            <section class="mb-8 md:mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Fitur Unggulan</h2>
+
+                <div class="space-y-6 md:space-y-8">
+                    @foreach($mobil->fiturMobil as $fitur)
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden flex justify-center">
+                            <div class="feature-image-container">
+                                <img src="{{ asset('storage/'.$fitur->gambar_fitur_mobil) }}"
+                                    alt="{{ $fitur->nama_fitur ?? $fitur->fitur_mobil ?? 'Fitur '.$mobil->nama_mobil }}"
+                                    class="feature-image mx-auto">
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </section>
         @endif
+
 
         @php
             $tipeMobilSorted = $mobil->tipeMobil->sortBy('harga_mobil');

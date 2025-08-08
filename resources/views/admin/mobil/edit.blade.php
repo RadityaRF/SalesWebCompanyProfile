@@ -15,7 +15,7 @@
     </div>
     @endif
 
-    <form id="form-edit-mobil" action="{{ route('admin.mobil.update', $mobil->id) }}" method="POST" enctype="multipart/form-data" class="space-y-4 text-base">
+    <form id="form-edit-mobil" action="{{ route('admin.mobil.update', $mobil->slug) }}" method="POST" enctype="multipart/form-data" class="space-y-4 text-base">
         @csrf
         @method('PUT')
 
