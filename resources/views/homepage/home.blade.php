@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Honda Indonesia')
+@section('title', 'Toyota Indonesia')
 @section('content')
     {{-- Hero Banner --}}
     <div class="mb-8">
@@ -52,13 +52,64 @@
         <p class="text-gray-500">Tidak ada mobil yang tersedia</p>
     </div>
 
+    
+
+    {{-- Contact Us --}}
+    <div class="bg-red-900 text-white py-12 mt-20" id="contact-us">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+
+            {{-- Left Column - Logo & About --}}
+            <div>
+                <h3 class="text-lg font-semibold mb-2">Toyota Signature Jakarta</h3>
+                <p class="italic text-gray-300 mb-4">
+                    Menjadi dealer Toyota pilihan utama di Indonesia yang menghadirkan pelayanan istimewa, kualitas terbaik, dan pengalaman kepemilikan mobil yang tak tertandingi.
+                </p>
+            </div>
+
+            {{-- Middle Column - Opening Hours --}}
+            <div>
+                <h3 class="text-lg font-semibold mb-2">Jam Operasional</h3>
+                <p class="font-medium text-gray-300 mb-2">Senin – Sabtu: 09.00 – 18.00</p>
+                <p class="font-medium text-gray-300 mb-2">Minggu : 17.30 – 00.00</p>
+                {{-- <p class="font-medium text-gray-300">Friday – Saturday: 12.00 – 14.45</p> --}}
+            </div>
+
+            {{-- Right Column - Contact Info --}}
+            <div>
+                <h3 class="text-lg font-semibold mb-2">Contact Info</h3>
+                <p class="font-semibold text-gray-300 mb-2">
+                    Rafi Nabil
+                </p>
+                {{-- WhatsApp --}}
+                <a href="https://wa.me/6287784281500?text=Halo%20Rafi%20Nabil%2C%20saya%20tertarik%20dengan%20mobil%20Toyota-nya.%20Bisa%20dibantu%20info%20lebih%20lanjut%3F%20Terima%20kasih." target="_blank" class="italic flex items-center mb-2 hover:text-red-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20.52 3.48A11.8 11.8 0 0012.01 0C5.38 0 .01 5.37.01 12c0 2.11.55 4.18 1.6 6.01L0 24l6.19-1.61a11.97 11.97 0 005.82 1.49h.01c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.5-8.4zM12 21.54a9.57 9.57 0 01-4.88-1.34l-.35-.21-3.67.96.98-3.58-.23-.37A9.53 9.53 0 012.45 12c0-5.28 4.28-9.56 9.56-9.56 2.56 0 4.97 1 6.78 2.8a9.55 9.55 0 012.8 6.77c0 5.28-4.28 9.56-9.56 9.56zm5.26-7.17c-.29-.15-1.72-.85-1.99-.94-.27-.1-.47-.15-.67.15-.2.29-.77.94-.94 1.13-.17.2-.35.22-.64.07-.29-.15-1.23-.45-2.34-1.44-.86-.76-1.45-1.7-1.62-1.99-.17-.29-.02-.45.13-.59.14-.14.29-.34.44-.51.15-.17.2-.29.29-.49.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51-.17 0-.37-.01-.57-.01s-.52.07-.8.37c-.27.29-1.05 1.02-1.05 2.48s1.08 2.88 1.23 3.07c.15.2 2.13 3.25 5.17 4.55.72.31 1.28.5 1.72.64.72.23 1.37.2 1.88.12.57-.08 1.72-.7 1.97-1.38.24-.67.24-1.24.17-1.38-.07-.15-.26-.24-.54-.39z"/>
+                    </svg>
+                    WhatsApp : Rafi Nabil
+                </a>
+
+                {{-- Email --}}
+                <a href="mailto:rafinabil.toyotasignature@gmail.com?subject=Info%20Mobil%20Toyota&body=Halo%20Rafi%20Nabil%2C%0A%0ASaya%20tertarik%20dengan%20mobil%20Toyota-nya.%20Bisa%20dibantu%20info%20lebih%20lanjut%3F%0A%0ATerima%20kasih." target="_blank"
+                class="italic flex items-center mb-2 hover:text-red-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 13.065l-11.74-8.77c.175-.148.394-.295.633-.295h22.214c.239 0 .458.147.633.295L12 13.065zm0 2.021l-12-8.965V20.25c0 .414.336.75.75.75h22.5c.414 0 .75-.336.75-.75V6.121l-12 8.965z"/>
+                    </svg>
+                    rafinabil.ToyotaSignature@gmail.com
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+
     {{-- Google Maps Embed --}}
     <div class="mt-20 max-w-4xl mx-auto">
-        <h2 class="text-xl font-semibold text-center mb-4">Lokasi Honda Pekalongan Motor</h2>
+        <h2 class="text-xl font-semibold text-center mb-4">Lokasi Toyota Signature Motor</h2>
         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
             <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" loading="lazy" allowfullscreen src="https://maps.google.com/maps?q=Honda+Pekalongan+Motor&output=embed"></iframe>
         </div>
     </div>
+
 @endsection
 
 @push('styles')
@@ -155,5 +206,20 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.reload();
     });
 });
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('a[href*="#contact-us"]').forEach(link => {
+        link.addEventListener('click', function (e) {
+            if (window.location.pathname === '{{ route('home', [], false) }}') {
+                e.preventDefault();
+                const target = document.querySelector('#contact-section');
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    });
+});
+</script>
 </script>
 @endpush

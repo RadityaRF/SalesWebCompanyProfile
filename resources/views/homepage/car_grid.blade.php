@@ -24,10 +24,12 @@
                 class="w-full text-center py-2.5 rounded-md bg-red-600 text-white text-sm font-medium hover:bg-red-700 transition duration-150">
                 Detail
             </a>
-            <a href="https://wa.me"
-                class="w-full text-center py-2.5 rounded-md border border-red-600 text-red-600 text-sm font-medium hover:bg-red-50 transition duration-150">
+            {{-- Tawaran --}}
+            <a href="https://wa.me/6287784281500?text={{ urlencode('Halo Rafi Nabil, saya tertarik dengan mobil Toyota ' . $mobil->nama_mobil . '. Bisa dibantu info lebih lanjut? Terima kasih.') }}"
+            class="w-full text-center py-2.5 rounded-md border border-red-600 text-red-600 text-sm font-medium hover:bg-red-50 transition duration-150">
                 Minta Penawaran
             </a>
+
             </div>
         </div>
         </div>
