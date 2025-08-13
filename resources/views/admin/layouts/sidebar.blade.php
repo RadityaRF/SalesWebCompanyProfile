@@ -39,6 +39,13 @@
             <span>Tipe Mobil</span>
         </a>
     </li>
+    <li class="sidebar-item">
+        <a href="{{ route('admin.promo.index') }}"
+           class="sidebar-link flex items-center p-3 rounded-lg hover:bg-[#252222] hover:text-red-500 transition-colors duration-200 {{ request()->routeIs('admin.promo.*') ? 'bg-[#252222] text-red-500' : '' }}">
+            <i class="lni lni-layers-1 mr-3"></i>
+            <span>List Promo</span>
+        </a>
+    </li>
 </ul>
 
 {{-- Sidebar Footer with Logout --}}

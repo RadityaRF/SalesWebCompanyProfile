@@ -12,7 +12,7 @@
     <h1 class="text-3xl font-bold text-center text-red-800 mb-6 md:mb-8">Pilih Mobil Toyota untuk Anda!</h1>
 
     {{-- Filter Desktop Only --}}
-    <div class="mb-8 px-4">
+    <div class="mb-8 px-4" id="list-mobil">
         <ul id="filter-list" class="hidden md:flex justify-center space-x-2 min-w-max">
         @php
             $currentFilter = request()->query('jenis', 'All');
@@ -52,16 +52,25 @@
         <p class="text-gray-500">Tidak ada mobil yang tersedia</p>
     </div>
 
-    
+
+    {{-- Google Maps Embed --}}
+    <div class="mt-20 max-w-4xl mx-auto bg-white shadow-md rounded-xl p-6" >
+        <div >
+            <h2 class="text-xl font-semibold text-center mb-4">Lokasi Toyota Signature Motor</h2>
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" loading="lazy" allowfullscreen src="https://maps.google.com/maps?q=Honda+Pekalongan+Motor&output=embed"></iframe>
+            </div>
+        </div>
+    </div>    
 
     {{-- Contact Us --}}
-    <div class="bg-red-900 text-white py-12 mt-20" id="contact-us">
+    <div class="bg-transparent-900 text-stone-700 py-12 mt-20 bg-white shadow-md rounded-xl p-6" id="contact-us">
         <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
 
             {{-- Left Column - Logo & About --}}
             <div>
                 <h3 class="text-lg font-semibold mb-2">Toyota Signature Jakarta</h3>
-                <p class="italic text-gray-300 mb-4">
+                <p class="italic text-stone-700 mb-4">
                     Menjadi dealer Toyota pilihan utama di Indonesia yang menghadirkan pelayanan istimewa, kualitas terbaik, dan pengalaman kepemilikan mobil yang tak tertandingi.
                 </p>
             </div>
@@ -69,15 +78,15 @@
             {{-- Middle Column - Opening Hours --}}
             <div>
                 <h3 class="text-lg font-semibold mb-2">Jam Operasional</h3>
-                <p class="font-medium text-gray-300 mb-2">Senin – Sabtu: 09.00 – 18.00</p>
-                <p class="font-medium text-gray-300 mb-2">Minggu : 17.30 – 00.00</p>
+                <p class="font-medium text-stone-700 mb-2">Senin – Sabtu: 09.00 – 18.00</p>
+                <p class="font-medium text-stone-700 mb-2">Minggu : 17.30 – 00.00</p>
                 {{-- <p class="font-medium text-gray-300">Friday – Saturday: 12.00 – 14.45</p> --}}
             </div>
 
             {{-- Right Column - Contact Info --}}
             <div>
                 <h3 class="text-lg font-semibold mb-2">Contact Info</h3>
-                <p class="font-semibold text-gray-300 mb-2">
+                <p class="font-semibold text-stone-700 mb-2">
                     Rafi Nabil
                 </p>
                 {{-- WhatsApp --}}
@@ -102,13 +111,7 @@
     </div>
 
 
-    {{-- Google Maps Embed --}}
-    <div class="mt-20 max-w-4xl mx-auto">
-        <h2 class="text-xl font-semibold text-center mb-4">Lokasi Toyota Signature Motor</h2>
-        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" loading="lazy" allowfullscreen src="https://maps.google.com/maps?q=Honda+Pekalongan+Motor&output=embed"></iframe>
-        </div>
-    </div>
+
 
 @endsection
 
@@ -135,84 +138,73 @@ document.addEventListener('DOMContentLoaded', function() {
     const carGridContainer = document.getElementById('car-grid-container');
     const loadingIndicator = document.getElementById('loading-indicator');
     const emptyState = document.getElementById('empty-state');
-
-    // Check if mobile device
     const isMobile = () => window.innerWidth < 768;
 
     filterLinks.forEach(link => {
         link.addEventListener('click', async function(e) {
-        if (isMobile()) {
+            if (isMobile()) {
+                e.preventDefault();
+                return;
+            }
             e.preventDefault();
-            return;
-        }
+            const filterValue = this.dataset.filter;
 
-        e.preventDefault();
-        const filterValue = this.dataset.filter;
+            carGridContainer.classList.add('opacity-50');
+            loadingIndicator.classList.remove('hidden');
+            emptyState.classList.add('hidden');
 
-        // Show loading
-        carGridContainer.classList.add('opacity-50');
-        loadingIndicator.classList.remove('hidden');
-        emptyState.classList.add('hidden');
+            try {
+                const response = await fetch(`{{ route('mobil.filter') }}?jenis=${encodeURIComponent(filterValue)}`, {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                });
+                if (!response.ok) throw new Error('Network error');
 
-        try {
-            const response = await fetch(`{{ route('mobil.filter') }}?jenis=${encodeURIComponent(filterValue)}`, {
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
+                const html = await response.text();
+                carGridContainer.innerHTML = html;
+
+                filterLinks.forEach(link => {
+                    const isActive = link.dataset.filter === filterValue;
+                    link.classList.toggle('bg-red-600', isActive);
+                    link.classList.toggle('text-white', isActive);
+                    link.classList.toggle('border-red-600', isActive);
+                    link.classList.toggle('bg-gray-100', !isActive);
+                    link.classList.toggle('text-gray-700', !isActive);
+                    link.classList.toggle('border-gray-300', !isActive);
+                });
+
+                history.pushState({}, '', `{{ url()->current() }}?jenis=${encodeURIComponent(filterValue)}`);
+                if (carGridContainer.querySelector('.bg-white') === null) {
+                    emptyState.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error(error);
+                carGridContainer.innerHTML = `
+                    <div class="col-span-full text-center py-10">
+                        <i class="fas fa-exclamation-triangle text-red-500 text-2xl mb-2"></i>
+                        <p class="text-red-500">Gagal memuat data. Silakan coba lagi.</p>
+                        <button onclick="window.location.reload()" class="mt-2 px-4 py-2 bg-red-100 text-red-600 rounded">Muat Ulang</button>
+                    </div>`;
+            } finally {
+                loadingIndicator.classList.add('hidden');
+                carGridContainer.classList.remove('opacity-50');
             }
-            });
-
-            if (!response.ok) throw new Error('Network response was not ok');
-
-            const html = await response.text();
-            carGridContainer.innerHTML = html;
-
-            // Update active filter UI
-            filterLinks.forEach(link => {
-            link.classList.toggle('bg-red-600', link.dataset.filter === filterValue);
-            link.classList.toggle('text-white', link.dataset.filter === filterValue);
-            link.classList.toggle('border-red-600', link.dataset.filter === filterValue);
-            link.classList.toggle('bg-gray-100', link.dataset.filter !== filterValue);
-            link.classList.toggle('text-gray-700', link.dataset.filter !== filterValue);
-            link.classList.toggle('border-gray-300', link.dataset.filter !== filterValue);
-            });
-
-            // Update URL without reload
-            history.pushState({}, '', `{{ url()->current() }}?jenis=${encodeURIComponent(filterValue)}`);
-
-            // Show empty state if no cars
-            if (carGridContainer.querySelector('.bg-white') === null) {
-            emptyState.classList.remove('hidden');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            carGridContainer.innerHTML = `
-            <div class="col-span-full text-center py-10">
-                <i class="fas fa-exclamation-triangle text-red-500 text-2xl mb-2"></i>
-                <p class="text-red-500">Gagal memuat data. Silakan coba lagi.</p>
-                <button onclick="window.location.reload()" class="mt-2 px-4 py-2 bg-red-100 text-red-600 rounded">
-                Muat Ulang
-                </button>
-            </div>
-            `;
-        } finally {
-            loadingIndicator.classList.add('hidden');
-            carGridContainer.classList.remove('opacity-50');
-        }
         });
     });
 
-    // Handle browser back/forward
     window.addEventListener('popstate', function() {
         window.location.reload();
     });
 });
+</script>
+
 <script>
+// Smooth scroll for Contact Us
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('a[href*="#contact-us"]').forEach(link => {
         link.addEventListener('click', function (e) {
             if (window.location.pathname === '{{ route('home', [], false) }}') {
                 e.preventDefault();
-                const target = document.querySelector('#contact-section');
+                const target = document.querySelector('#contact-us');
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth' });
                 }
@@ -221,5 +213,22 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+
+<script>
+// Smooth scroll for List Mobil
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('a[href*="#list-mobil"]').forEach(link => {
+        link.addEventListener('click', function (e) {
+            if (window.location.pathname === '{{ route('home', [], false) }}') {
+                e.preventDefault();
+                const target = document.querySelector('#list-mobil');
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    });
+});
 </script>
 @endpush
+

@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MobilController as AdminMobilController;
 use App\Http\Controllers\Admin\MobilTipeController as AdminMobilTipeController;
 use App\Http\Controllers\Admin\SettingController as AdminSettingController;
+use App\Http\Controllers\PromoController as PromoController;
+use App\Http\Controllers\Admin\PromoController as AdminPromoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +27,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/mobil/filter', [HomeController::class, 'filterMobil'])->name('mobil.filter');
 // Route::get('/mobil/{nama_mobil}', [MobilController::class, 'show'])->name('mobil.show');
 Route::get('/mobil/{mobil:slug}', [MobilController::class, 'show'])->name('mobil.show');
+
+//Promo section
+Route::get('/promo', [PromoController::class, 'index'])->name('promo');
+
 
 // Admin Panel Routes
 Route::prefix('admin')->name('admin.')->group(function() {
@@ -58,5 +64,10 @@ Route::prefix('admin')->name('admin.')->group(function() {
         // Settings (Homepage banner & Contact)
         Route::get('settings', [AdminSettingController::class, 'edit'])->name('settings.edit');
         Route::put('settings', [AdminSettingController::class, 'update'])->name('settings.update');
+
+        // Promo Admin
+        Route::get('promo', [AdminPromoController::class, 'index'])->name('promo.index');
+        Route::post('promo', [AdminPromoController::class, 'store'])->name('promo.store');
+        Route::delete('promo/{filename}', [AdminPromoController::class, 'destroy'])->name('promo.destroy');
     });
 });

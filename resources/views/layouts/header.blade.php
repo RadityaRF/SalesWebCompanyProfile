@@ -7,8 +7,8 @@
 
         <!-- Desktop Navigation -->
         <nav class="hidden md:flex items-center space-x-6 text-sm uppercase">
-            <a href="{{ route('home') }}" class="hover:text-red-600 transition-colors duration-200">List Mobil</a>
-            <a href="# class="hover:text-red-600 transition-colors duration-200">Promo</a>
+            <a href="{{ route('home') }}#list-mobil" class="hover:text-red-600 transition-colors duration-200">List Mobil</a>
+            <a href="{{ route('promo') }}"hover:text-red-600 transition-colors duration-200">Promo</a>
             <a href="{{ route('home') }}#contact-us" class="hover:text-red-600 transition-colors duration-200">Contact Us</a>
             <!-- <button aria-label="Search" class="hover:text-red-600 transition-colors duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -31,8 +31,8 @@
     <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3">
             <nav class="space-y-3 text-sm uppercase">
-                <a href="{{ route('home') }}" class="block py-2 hover:text-red-600 transition-colors duration-200">List Mobil</a>
-                <a href="#" class="block py-2 hover:text-red-600 transition-colors duration-200">Promo</a>
+                <a href="{{ route('home') }}#list-mobil" class="block py-2 hover:text-red-600 transition-colors duration-200">List Mobil</a>
+                <a href="{{ route('promo') }}" class="block py-2 hover:text-red-600 transition-colors duration-200">Promo</a>
                 <a href="{{ route('home') }}#contact-us" class="block py-2 hover:text-red-600 transition-colors duration-200">Contact Us</a>
                 <!-- <button aria-label="Search" class="block py-2 hover:text-red-600 transition-colors duration-200 w-full text-left">
                     <div class="flex items-center">
@@ -57,3 +57,26 @@
         this.setAttribute('aria-expanded', !isExpanded);
     });
 </script>
+
+
+<script>
+    let lastScrollY = window.scrollY;
+    const header = document.querySelector('header');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > lastScrollY) {
+            // scrolling down → hide
+            header.style.transform = 'translateY(-100%)';
+        } else {
+            // scrolling up → show
+            header.style.transform = 'translateY(0)';
+        }
+        lastScrollY = window.scrollY;
+    });
+</script>
+
+<style>
+    header {
+        transition: transform 0.3s ease;
+    }
+</style>
